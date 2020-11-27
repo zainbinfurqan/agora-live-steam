@@ -57,7 +57,7 @@ function joinChannel(role) {
                 });
             }
             if (role === "audience") {
-                rtc.client.setClientRole("audience");
+                // rtc.client.setClientRole("audience")
 
                 rtc.client.on("stream-added", function (evt) {
                     var remoteStream = evt.stream;
