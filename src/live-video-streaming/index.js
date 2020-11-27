@@ -58,6 +58,27 @@ function joinChannel(role) {
             }
             if (role === "audience") {
                 rtc.client.setClientRole("audience");
+
+                tc.client.on("stream-added", function (evt) {
+                    var remoteStream = evt.stream;
+                    var id = remoteStream.getId();
+                    if (id !== rtc.params.uid) {
+                        rtc.client.subscribe(remoteStream, function (err) {
+                            console.log("stream subscribe failed", err);
+                        })
+                    }
+                    console.log('stream-added remote-uid: ', id);
+                });
+
+                rtc.client.on("stream-subscribed", function (evt) {
+                    var remoteStream = evt.stream;
+                    var id = remoteStream.getId();
+                    // Add a view for the remote stream.
+                    addView(id);
+                    // Play the remote stream.
+                    remoteStream.play("remote_video_" + id);
+                    console.log('stream-subscribed remote-uid: ', id);
+                })
             }
         }, function (err) {
             console.error("client join failed", err)
@@ -75,6 +96,12 @@ function LiveVideoStreaming(props) {
             <button onClick={() => joinChannel('host')}>Join Channel as Host</button>
             <button onClick={() => joinChannel('audience')}>Join Channel as Audience</button>
             <div id="local_stream" className="local_stream" style={{ width: "400px", height: "400px" }}></div>
+            <div
+                // key={streamId}
+                // id={`agora_remote ${streamId}`}
+                id='remote_video_'
+                style={{ width: "400px", height: "400px" }}
+            />
         </div>
     );
 }
