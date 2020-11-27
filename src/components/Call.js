@@ -4,6 +4,7 @@ import { isFirefox } from './common'
 import './style.css'
 
 let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
+// client.setClientRole()
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
 const APP_ID = "fc5136ca373f47599de2ef68059b1663";
