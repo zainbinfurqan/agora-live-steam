@@ -74,7 +74,7 @@ function LiveVideoStreaming(props) {
         <div>
             <button onClick={() => joinChannel('host')}>Join Channel as Host</button>
             <button onClick={() => joinChannel('audience')}>Join Channel as Audience</button>
-            <div id="local_stream" className="local_stream"></div>
+            <div id="local_stream" className="local_stream" style={{ width: "400px", height: "400px" }}></div>
         </div>
     );
 }
