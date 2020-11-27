@@ -74,7 +74,7 @@ function joinChannel(role) {
                     var remoteStream = evt.stream;
                     var id = remoteStream.getId();
                     // Add a view for the remote stream.
-                    addView(id);
+                    // addView(id);
                     // Play the remote stream.
                     remoteStream.play("remote_video_" + id);
                     console.log('stream-subscribed remote-uid: ', id);
