@@ -74,7 +74,7 @@ function joinChannel(role) {
                     var remoteStream = evt.stream;
                     var id = remoteStream.getId();
                     // Add a view for the remote stream.
-                    addView(id);
+                    // addView(id);
                     // Play the remote stream.
                     remoteStream.play("remote_video_" + id);
                     console.log('stream-subscribed remote-uid: ', id);
@@ -99,7 +99,7 @@ function LiveVideoStreaming(props) {
             <div
                 // key={streamId}
                 // id={`agora_remote ${streamId}`}
-                id='remote_video_'
+                id="remote_video_"
                 style={{ width: "400px", height: "400px" }}
             />
         </div>
