@@ -90,11 +90,19 @@ function joinChannel(role) {
 
 }
 
+async function injectVideo() {
+    const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`);
+    console.log("response=>", response)
+    const res = await response.json()
+    console.log("res=>", res)
+}
+
 function LiveVideoStreaming(props) {
     return (
         <div>
             <button onClick={() => joinChannel('host')}>Join Channel as Host</button>
             <button onClick={() => joinChannel('audience')}>Join Channel as Audience</button>
+            <button onClick={() => injectVideo()}>Inject video</button>
             <div id="local_stream" className="local_stream" style={{ width: "400px", height: "400px" }}></div>
             <div
                 // key={streamId}

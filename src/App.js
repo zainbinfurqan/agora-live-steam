@@ -3,6 +3,11 @@ import ChannelForm from "./components/ChannelForm";
 import Call from "./components/Call";
 import LiveVideStream from './live-video-streaming'
 
+import { Route, Switch } from 'react-router-dom'
+import Index from './watch-party/pages/index.js'
+import Meeting from './watch-party/pages/meeting'
+import { BrowserRouterHook } from './watch-party/utils/use-router'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +26,12 @@ class App extends Component {
         {/* <ChannelForm selectChannel={this.selectChannel} /> */}
         {/* <Call channel={this.state.channel} /> */}
         <LiveVideStream />
+        {/* <BrowserRouterHook>
+          <Switch>
+            <Route exact path="/meeting/:name" component={Meeting}></Route>
+            <Route path="/" component={Index}></Route>
+          </Switch>
+        </BrowserRouterHook> */}
       </div>
     );
   }
