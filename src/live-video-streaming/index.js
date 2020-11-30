@@ -96,11 +96,7 @@ async function injectVideo() {
     const token_ = window.btoa(`${option.key}:${option.secret}`);
     const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': token_
-        },
-        body: {
+        body: JSON.stringify({
             "player": {
                 "streamUrl": "rtmp://example.agora.io/live/class32/101",
                 "channelName": option.channel,
@@ -108,7 +104,12 @@ async function injectVideo() {
                 "uid": option.uid,
                 "idleTimeout": 300
             }
-        }
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token_
+        },
+
     });
     console.log("response=>", response)
     const res = await response.json()
