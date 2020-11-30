@@ -17,7 +17,7 @@ var option = {
     appID: "1463feb9d18843cbb42af2db97112081",
     channel: "zainahmed",
     uid: null,
-    token: "0061463feb9d18843cbb42af2db97112081IABGRNAUqk/lxQW4rvH2X/T2FVi+AUlCBpTeyNN5dpYPWh15j/sAAAAAEACVypXNPfTBXwEAAQA19MFf"
+    token: "0061463feb9d18843cbb42af2db97112081IABKivjp9iTAXuSxugZii3285x0yZQqclDcPHyOyuP0X0x15j/sAAAAAEAAWal0mg3LGXwEAAQCEcsZf"
 }
 
 function joinChannel(role) {
