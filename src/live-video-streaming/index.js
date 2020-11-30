@@ -94,6 +94,7 @@ function joinChannel(role) {
 
 async function injectVideo() {
     const token_ = window.btoa(`${option.key}:${option.secret}`);
+    console.log("token_=>", token_)
     const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
         method: "POST",
         body: JSON.stringify({
@@ -107,7 +108,7 @@ async function injectVideo() {
         }),
         headers: {
             "Content-Type": "application/json",
-            'Authorization': token_
+            'Authorization': "Basic " + token_
         },
 
     });
