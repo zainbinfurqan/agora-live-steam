@@ -100,6 +100,15 @@ async function injectVideo() {
             "Content-Type": "application/json",
             'Authorization': token_
         },
+        body: {
+            "player": {
+                "streamUrl": "rtmp://example.agora.io/live/class32/101",
+                "channelName": option.channel,
+                "token": option.token,
+                "uid": option.uid,
+                "idleTimeout": 300
+            }
+        }
     });
     console.log("response=>", response)
     const res = await response.json()
