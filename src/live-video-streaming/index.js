@@ -93,28 +93,39 @@ function joinChannel(role) {
 }
 
 async function injectVideo() {
-    const token_ = window.btoa(`${option.key}:${option.secret}`);
-    console.log("token_=>", token_)
-    const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
-        method: "POST",
-        body: JSON.stringify({
-            "player": {
-                "streamUrl": "rtmp://example.agora.io/live/class32/101",
-                "channelName": option.channel,
-                "token": option.token,
-                "uid": option.uid,
-                "idleTimeout": 300
-            }
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': "Basic " + token_
-        },
+    var InjectStreamConfig = {
+        width: 0,
+        height: 0,
+        videoGop: 30,
+        videoFramerate: 15,
+        videoBitrate: 400,
+        audioSampleRate: 44100,
+        audioChannels: 1,
+    };
 
-    });
-    console.log("response=>", response)
-    const res = await response.json()
-    console.log("res=>", res)
+    rtc.client.addInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0', InjectStreamConfig);
+    // const token_ = window.btoa(`${option.key}:${option.secret}`);
+    // console.log("token_=>", token_)
+    // const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //         "player": {
+    //             "streamUrl": "rtmp://example.agora.io/live/class32/101",
+    //             "channelName": option.channel,
+    //             "token": option.token,
+    //             "uid": option.uid,
+    //             "idleTimeout": 300
+    //         }
+    //     }),
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         'Authorization': "Basic " + token_
+    //     },
+
+    // });
+    // console.log("response=>", response)
+    // const res = await response.json()
+    // console.log("res=>", res)
 }
 
 function LiveVideoStreaming(props) {
