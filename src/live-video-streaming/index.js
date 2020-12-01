@@ -130,7 +130,7 @@ async function injectVideo() {
 }
 
 function removeInjectVideo() {
-    Client.removeInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0');
+    rtc.client.removeInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0');
 }
 
 function LiveVideoStreaming(props) {
