@@ -81,6 +81,10 @@ function joinChannel(role) {
                     remoteStream.play("remote_video_");
                     console.log('stream-subscribed remote-uid: ', id);
                 })
+                rtc.client.on('streamInjectedStatus', function (evt) {
+                    // You could see streamInjectedStatus here.
+                    console.log(evt)
+                })
             }
         }, function (err) {
             console.error("client join failed", err)
