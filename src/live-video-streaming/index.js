@@ -59,7 +59,7 @@ function joinChannel(role) {
                 });
                 rtc.client.on('streamInjectedStatus', function (evt) {
                     // You could see streamInjectedStatus here.
-                    console.log(evt)
+                    console.log("evt", evt)
                 })
             }
             if (role === "audience") {
