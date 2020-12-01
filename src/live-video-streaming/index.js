@@ -57,6 +57,10 @@ function joinChannel(role) {
                 }, function (err) {
                     console.error("init local stream failed ", err);
                 });
+                rtc.client.on('streamInjectedStatus', function (evt) {
+                    // You could see streamInjectedStatus here.
+                    console.log(evt)
+                })
             }
             if (role === "audience") {
                 // rtc.client.setClientRole("audience")
