@@ -94,12 +94,13 @@ function joinChannel(role) {
 
 async function injectVideo() {
     var InjectStreamConfig = {
-        width: 0,
-        height: 0,
+        width: 640,
+        height: 480,
         videoGop: 30,
-        videoFramerate: 15,
-        videoBitrate: 400,
-        audioSampleRate: 44100,
+        videoFramerate: 30,
+        videoBitrate: 500,
+        audioSampleRate: 48000,
+        audioBitrate: 50,
         audioChannels: 1,
     };
 
@@ -128,12 +129,17 @@ async function injectVideo() {
     // console.log("res=>", res)
 }
 
+function removeInjectVideo() {
+    Client.removeInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0');
+}
+
 function LiveVideoStreaming(props) {
     return (
         <div>
             <button onClick={() => joinChannel('host')}>Join Channel as Host</button>
             <button onClick={() => joinChannel('audience')}>Join Channel as Audience</button>
             <button onClick={() => injectVideo()}>Inject video</button>
+            <button onClick={() => removeInjectVideo()}>Remove Injected video</button>
             <div id="local_stream" className="local_stream" style={{ width: "400px", height: "400px" }}></div>
             <div
                 // key={streamId}
