@@ -113,7 +113,7 @@ async function injectVideo() {
     };
 
     rtc.client.addInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0', InjectStreamConfig);
-    // const token_ = window.btoa(`${option.key}:${option.secret}`);
+    const token_ = window.btoa(`${option.key}:${option.secret}`);
     // console.log("token_=>", token_)
     // const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
     //     method: "POST",

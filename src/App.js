@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom'
 import Index from './watch-party/pages/index.js'
 import Meeting from './watch-party/pages/meeting'
 import { BrowserRouterHook } from './watch-party/utils/use-router'
+import WebRTCVideoToVideo from "./webRTC-video-to-video";
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,9 @@ class App extends Component {
       channel: ""
     };
   }
+
+
+
 
   selectChannel = channel => {
     this.setState({ channel });
@@ -25,7 +29,8 @@ class App extends Component {
       <div className="App">
         {/* <ChannelForm selectChannel={this.selectChannel} /> */}
         {/* <Call channel={this.state.channel} /> */}
-        <LiveVideStream />
+        {/* <LiveVideStream /> */}
+        <WebRTCVideoToVideo />
         {/* <BrowserRouterHook>
           <Switch>
             <Route exact path="/meeting/:name" component={Meeting}></Route>
