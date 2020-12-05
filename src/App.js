@@ -29,8 +29,8 @@ class App extends Component {
       <div className="App">
         {/* <ChannelForm selectChannel={this.selectChannel} /> */}
         {/* <Call channel={this.state.channel} /> */}
-        {/* <LiveVideStream /> */}
-        <WebRTCVideoToVideo />
+        <LiveVideStream />
+        {/* <WebRTCVideoToVideo /> */}
         {/* <BrowserRouterHook>
           <Switch>
             <Route exact path="/meeting/:name" component={Meeting}></Route>
