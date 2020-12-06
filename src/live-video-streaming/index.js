@@ -17,7 +17,7 @@ var option = {
     appID: "1463feb9d18843cbb42af2db97112081",
     channel: "zainahmed",
     uid: null,
-    token: "0061463feb9d18843cbb42af2db97112081IABKivjp9iTAXuSxugZii3285x0yZQqclDcPHyOyuP0X0x15j/sAAAAAEAAWal0mg3LGXwEAAQCEcsZf",
+    token: "0061463feb9d18843cbb42af2db97112081IADdm0JFbuq4vaImgsTCRkTHaocs3OdVizFqGzfE3LAx2B15j/sAAAAAEAAWal0mN8PNXwEAAQA2w81f",
     key: 'b8ace6b2c9bb4ce9b38b7cdb11affea4',
     secret: 'd63104c4e4de45fd937f7b4d86bd06fc'
 }
@@ -101,40 +101,40 @@ function joinChannel(role) {
 }
 
 async function injectVideo() {
-    var InjectStreamConfig = {
-        width: 640,
-        height: 480,
-        videoGop: 30,
-        videoFramerate: 30,
-        videoBitrate: 500,
-        audioSampleRate: 48000,
-        audioBitrate: 50,
-        audioChannels: 1,
-    };
+    // var InjectStreamConfig = {
+    //     width: 640,
+    //     height: 480,
+    //     videoGop: 30,
+    //     videoFramerate: 30,
+    //     videoBitrate: 500,
+    //     audioSampleRate: 48000,
+    //     audioBitrate: 50,
+    //     audioChannels: 1,
+    // };
 
-    rtc.client.addInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0', InjectStreamConfig);
+    // rtc.client.addInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0', InjectStreamConfig);
     const token_ = window.btoa(`${option.key}:${option.secret}`);
-    // console.log("token_=>", token_)
-    // const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         "player": {
-    //             "streamUrl": "rtmp://example.agora.io/live/class32/101",
-    //             "channelName": option.channel,
-    //             "token": option.token,
-    //             "uid": option.uid,
-    //             "idleTimeout": 300
-    //         }
-    //     }),
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         'Authorization': "Basic " + token_
-    //     },
+    console.log("token_=>", token_)
+    const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
+        method: "POST",
+        body: JSON.stringify({
+            "player": {
+                "streamUrl": "rtmp://example.agora.io/live/class32/101",
+                "channelName": option.channel,
+                "token": option.token,
+                "uid": option.uid,
+                "idleTimeout": 300
+            }
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': "Basic " + token_
+        },
 
-    // });
-    // console.log("response=>", response)
-    // const res = await response.json()
-    // console.log("res=>", res)
+    });
+    console.log("response=>", response)
+    const res = await response.json()
+    console.log("res=>", res)
 }
 
 function removeInjectVideo() {
