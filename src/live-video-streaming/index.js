@@ -14,12 +14,12 @@ var rtc = {
 
 // Options for joining a channel
 var option = {
-    appID: "1463febasdqwe1233cbb42af2d12er2131",
+    appID: "",
     channel: "zainahmed",
     uid: null,
     token: "0061463feb9d18843cbb42af2db97112081IAAkv86hY7iim7Jb3r2QPmnFAToA5mcbpf8g7x+lLdbkaR15j/sAAAAAEACpE93I+Lv4XwEAAQD3u/hf",
-    key: '8293hrnefu2389rhueweklnfo223r23dqwe',
-    secret: 'ajn82u23hfuFULQ23IOQHR23HR8OUIWEUIR'
+    key: '',
+    secret: ''
 }
 
 function joinChannel(role) {
