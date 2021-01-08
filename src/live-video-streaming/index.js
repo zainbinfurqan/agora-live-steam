@@ -14,144 +14,130 @@ var rtc = {
 
 // Options for joining a channel
 var option = {
-    appID: "1463feb9d18843cbb42af2db97112081",
+    appID: "1463febasdqwe1233cbb42af2d12er2131",
     channel: "zainahmed",
     uid: null,
-    token: "0061463feb9d18843cbb42af2db97112081IADdm0JFbuq4vaImgsTCRkTHaocs3OdVizFqGzfE3LAx2B15j/sAAAAAEAAWal0mN8PNXwEAAQA2w81f",
-    key: 'b8ace6b2c9bb4ce9b38b7cdb11affea4',
-    secret: 'd63104c4e4de45fd937f7b4d86bd06fc'
+    token: "0061463feb9d18843cbb42af2db97112081IAAkv86hY7iim7Jb3r2QPmnFAToA5mcbpf8g7x+lLdbkaR15j/sAAAAAEACpE93I+Lv4XwEAAQD3u/hf",
+    key: '8293hrnefu2389rhueweklnfo223r23dqwe',
+    secret: 'ajn82u23hfuFULQ23IOQHR23HR8OUIWEUIR'
 }
 
 function joinChannel(role) {
     // Create a client
     rtc.client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
-
     // Initialize the client
     rtc.client.init(option.appID, function () {
         console.log("init success");
 
         // Join a channel
-        rtc.client.join(option.token ? option.token : null, option.channel, option.uid ? +option.uid : null, function (uid) {
-            console.log("join channel: " + option.channel + " success, uid: " + uid);
-            rtc.params.uid = uid;
-            if (role === "host") {
-                rtc.client.setClientRole("host");
-                // Create a local stream
-                rtc.localStream = AgoraRTC.createStream({
-                    streamID: rtc.params.uid,
-                    audio: true,
-                    video: true,
-                    screen: false,
-                })
-
-                // Initialize the local stream
-                rtc.localStream.init(function () {
-                    console.log("init local stream success");
-                    // play stream with html element id "local_stream"
-                    rtc.localStream.play("local_stream");
-                    // Publish the local stream
-                    rtc.client.publish(rtc.localStream, function (err) {
-                        console.log("publish failed");
-                        console.error(err);
+        rtc.client.join(option.token ?
+            option.token : null,
+            option.channel, option.uid ? +option.uid : null, function (uid) {
+                console.log("join channel: " + option.channel + " success, uid: " + uid);
+                rtc.params.uid = uid;
+                if (role === "host") {
+                    rtc.client.setClientRole("host");
+                    // Create a local stream
+                    rtc.localStream = AgoraRTC.createStream({
+                        streamID: rtc.params.uid,
+                        audio: true,
+                        video: true,
+                        screen: false,
                     })
-                }, function (err) {
-                    console.error("init local stream failed ", err);
-                });
-                rtc.client.on('streamInjectedStatus', function (evt) {
-                    // You could see streamInjectedStatus here.
-                    console.log("evt", evt)
-                })
-            }
-            if (role === "audience") {
-                // rtc.client.setClientRole("audience")
 
-                rtc.client.on("stream-added", function (evt) {
-                    var remoteStream = evt.stream;
-                    var id = remoteStream.getId();
-                    if (id !== rtc.params.uid) {
-                        rtc.client.subscribe(remoteStream, function (err) {
-                            console.log("stream subscribe failed", err);
+                    // Initialize the local stream
+                    rtc.localStream.init(function () {
+                        console.log("init local stream success");
+                        rtc.localStream.play("local_stream");
+                        rtc.client.publish(rtc.localStream, function (err) {
+                            console.log("publish failed");
+                            console.error(err);
                         })
-                    }
-                    console.log('stream-added remote-uid: ', id);
-                });
+                    }, function (err) {
+                        console.error("init local stream failed ", err);
+                    });
 
-                rtc.client.on("stream-subscribed", function (evt) {
-                    var remoteStream = evt.stream;
-                    var id = remoteStream.getId();
-                    // Add a view for the remote stream.
-                    // addView(id);
-                    // Play the remote stream.
-                    remoteStream.play("remote_video_");
-                    console.log('stream-subscribed remote-uid: ', id);
-                })
-                rtc.client.on('streamInjectedStatus', function (evt) {
-                    // You could see streamInjectedStatus here.
-                    console.log(evt)
-                })
-            }
-        }, function (err) {
-            console.error("client join failed", err)
-        })
+                    rtc.client.on("connection-state-change", function (evt) {
+                        console.log("audience", evt)
+                    })
+
+
+                }
+                if (role === "audience") {
+                    rtc.client.on("connection-state-change", function (evt) {
+                        console.log("audience", evt)
+                    })
+
+                    rtc.client.on("stream-added", function (evt) {
+                        var remoteStream = evt.stream;
+                        var id = remoteStream.getId();
+                        if (id !== rtc.params.uid) {
+                            rtc.client.subscribe(remoteStream, function (err) {
+                                console.log("stream subscribe failed", err);
+                            })
+                        }
+                        console.log('stream-added remote-uid: ', id);
+                    });
+
+                    rtc.client.on("stream-removed", function (evt) {
+                        var remoteStream = evt.stream;
+                        var id = remoteStream.getId();
+                        console.log('stream-removed remote-uid: ', id);
+                    });
+
+                    rtc.client.on("stream-subscribed", function (evt) {
+                        var remoteStream = evt.stream;
+                        var id = remoteStream.getId();
+                        remoteStream.play("remote_video_");
+                        console.log('stream-subscribed remote-uid: ', id);
+                    })
+
+                    rtc.client.on("stream-unsubscribed", function (evt) {
+                        var remoteStream = evt.stream;
+                        var id = remoteStream.getId();
+                        remoteStream.pause("remote_video_");
+                        console.log('stream-unsubscribed remote-uid: ', id);
+                    })
+                }
+            }, function (err) {
+                console.error("client join failed", err)
+            })
 
     }, (err) => {
         console.error(err);
     });
-
 }
 
-async function injectVideo() {
-    // var InjectStreamConfig = {
-    //     width: 640,
-    //     height: 480,
-    //     videoGop: 30,
-    //     videoFramerate: 30,
-    //     videoBitrate: 500,
-    //     audioSampleRate: 48000,
-    //     audioBitrate: 50,
-    //     audioChannels: 1,
-    // };
-
-    // rtc.client.addInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0', InjectStreamConfig);
-    const token_ = window.btoa(`${option.key}:${option.secret}`);
-    console.log("token_=>", token_)
-    const response = await fetch(`https://api.agora.io/v1/projects/${option.appID}/cloud-player/players`, {
-        method: "POST",
-        body: JSON.stringify({
-            "player": {
-                "streamUrl": "rtmp://example.agora.io/live/class32/101",
-                "channelName": option.channel,
-                "token": option.token,
-                "uid": option.uid,
-                "idleTimeout": 300
-            }
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': "Basic " + token_
-        },
-
-    });
-    console.log("response=>", response)
-    const res = await response.json()
-    console.log("res=>", res)
+function leaveEventHost(params) {
+    rtc.client.unpublish(rtc.localStream, function (err) {
+        console.log("publish failed");
+        console.error(err);
+    })
+    rtc.client.leave(function (ev) {
+        console.log(ev)
+    })
 }
 
-function removeInjectVideo() {
-    rtc.client.removeInjectStreamUrl('https://www.youtube.com/watch?v=EdfdZSYIIz0');
+function leaveEventAudience(params) {
+    rtc.client.leave(function () {
+        console.log("client leaves channel");
+        //……
+    }, function (err) {
+        console.log("client leave failed ", err);
+        //error handling
+    })
 }
+
 
 function LiveVideoStreaming(props) {
     return (
         <div>
             <button onClick={() => joinChannel('host')}>Join Channel as Host</button>
             <button onClick={() => joinChannel('audience')}>Join Channel as Audience</button>
-            <button onClick={() => injectVideo()}>Inject video</button>
-            <button onClick={() => removeInjectVideo()}>Remove Injected video</button>
+            <button onClick={() => leaveEventHost('host')}>Leave Event Host</button>
+            <button onClick={() => leaveEventAudience('audience')}>Leave Event Audience</button>
             <div id="local_stream" className="local_stream" style={{ width: "400px", height: "400px" }}></div>
             <div
-                // key={streamId}
-                // id={`agora_remote ${streamId}`}
                 id="remote_video_"
                 style={{ width: "400px", height: "400px" }}
             />
